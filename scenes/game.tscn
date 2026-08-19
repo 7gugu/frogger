@@ -1,0 +1,99 @@
+[gd_scene format=3 uid="uid://mvxtpul7u8vt"]
+
+[ext_resource type="Script" uid="uid://jkhdapwmxiac" path="res://scenes/game.gd" id="1_lbhrr"]
+[ext_resource type="Texture2D" uid="uid://mrnwxm1fi5as" path="res://graphics/map.png" id="1_lnu2h"]
+[ext_resource type="PackedScene" uid="uid://dtn2vxx6gpggr" path="res://scenes/player.tscn" id="2_lbhrr"]
+[ext_resource type="PackedScene" uid="uid://b4usjjyotvffq" path="res://scenes/tree.tscn" id="3_lnu2h"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lnu2h"]
+size = Vector2(10, 640)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7xxjw"]
+size = Vector2(404, 4)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_u2qpp"]
+size = Vector2(373, 113)
+
+[node name="Game" type="Node2D" unique_id=369857592]
+script = ExtResource("1_lbhrr")
+
+[node name="BG" type="Sprite2D" parent="." unique_id=1200404990]
+texture = ExtResource("1_lnu2h")
+
+[node name="Borders" type="Node2D" parent="." unique_id=1331586452]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Borders" unique_id=556928473]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Borders/StaticBody2D" unique_id=678213558]
+position = Vector2(-197, 0)
+shape = SubResource("RectangleShape2D_lnu2h")
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="Borders" unique_id=1387807402]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Borders/StaticBody2D2" unique_id=1114133032]
+position = Vector2(197, 0)
+shape = SubResource("RectangleShape2D_lnu2h")
+
+[node name="StaticBody2D3" type="StaticBody2D" parent="Borders" unique_id=1957048636]
+position = Vector2(2, -340)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Borders/StaticBody2D3" unique_id=1588245543]
+position = Vector2(-2, 18)
+shape = SubResource("RectangleShape2D_7xxjw")
+
+[node name="StaticBody2D4" type="StaticBody2D" parent="Borders" unique_id=430962527]
+position = Vector2(2, 304)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Borders/StaticBody2D4" unique_id=213917622]
+position = Vector2(-2, 18)
+shape = SubResource("RectangleShape2D_7xxjw")
+
+[node name="FinishArea2D" type="Area2D" parent="Borders" unique_id=1486761326]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Borders/FinishArea2D" unique_id=1544403519]
+position = Vector2(0, -256)
+shape = SubResource("RectangleShape2D_u2qpp")
+
+[node name="Timer" type="Node" parent="." unique_id=564820656]
+
+[node name="CarTimer" type="Timer" parent="Timer" unique_id=395431064]
+autostart = true
+
+[node name="Objects" type="Node2D" parent="." unique_id=278907463]
+
+[node name="Player" parent="Objects" unique_id=873894058 instance=ExtResource("2_lbhrr")]
+
+[node name="Tree" parent="Objects" unique_id=1729924090 instance=ExtResource("3_lnu2h")]
+position = Vector2(80, 205)
+
+[node name="CarStartPositions" type="Node2D" parent="." unique_id=370286938]
+
+[node name="Marker2D" type="Marker2D" parent="CarStartPositions" unique_id=193266428]
+position = Vector2(197, 162)
+
+[node name="Marker2D2" type="Marker2D" parent="CarStartPositions" unique_id=424364137]
+position = Vector2(198, 113)
+
+[node name="Marker2D3" type="Marker2D" parent="CarStartPositions" unique_id=1160248591]
+position = Vector2(-198, 139)
+
+[node name="Marker2D4" type="Marker2D" parent="CarStartPositions" unique_id=1773382298]
+position = Vector2(-197, 92)
+
+[node name="Marker2D5" type="Marker2D" parent="CarStartPositions" unique_id=572255631]
+position = Vector2(197, 3)
+
+[node name="Marker2D6" type="Marker2D" parent="CarStartPositions" unique_id=44068993]
+position = Vector2(-197, -26)
+
+[node name="Marker2D7" type="Marker2D" parent="CarStartPositions" unique_id=310627570]
+position = Vector2(197, -52)
+
+[node name="Marker2D8" type="Marker2D" parent="CarStartPositions" unique_id=868528731]
+position = Vector2(197, -94)
+
+[node name="Marker2D9" type="Marker2D" parent="CarStartPositions" unique_id=1607111105]
+position = Vector2(-197, -118)
+
+[connection signal="body_entered" from="Borders/FinishArea2D" to="." method="_on_finish_area_2d_body_entered"]
+[connection signal="timeout" from="Timer/CarTimer" to="." method="_on_car_timer_timeout"]
