@@ -97,6 +97,8 @@ animations = [{
 }]
 
 [node name="Player" type="CharacterBody2D" unique_id=93290517]
+collision_layer = 2
+collision_mask = 13
 script = ExtResource("1_i3pqv")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=419203791]

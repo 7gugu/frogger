@@ -11,3 +11,4 @@ func _on_car_timer_timeout() -> void:
 
 func go_to_title(body: Node2D):
 	print('player car collision')
+	print(body)

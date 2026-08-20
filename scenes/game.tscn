@@ -60,6 +60,7 @@ shape = SubResource("RectangleShape2D_u2qpp")
 autostart = true
 
 [node name="Objects" type="Node2D" parent="." unique_id=278907463]
+y_sort_enabled = true
 
 [node name="Player" parent="Objects" unique_id=873894058 instance=ExtResource("2_lbhrr")]
 
