@@ -4,6 +4,8 @@
 [ext_resource type="Texture2D" uid="uid://mrnwxm1fi5as" path="res://graphics/map.png" id="1_lnu2h"]
 [ext_resource type="PackedScene" uid="uid://dtn2vxx6gpggr" path="res://scenes/player.tscn" id="2_lbhrr"]
 [ext_resource type="PackedScene" uid="uid://b4usjjyotvffq" path="res://scenes/tree.tscn" id="3_lnu2h"]
+[ext_resource type="PackedScene" uid="uid://b33hpoyrg8n2a" path="res://scenes/box.tscn" id="5_iywne"]
+[ext_resource type="FontFile" uid="uid://df5qtg0yia7vt" path="res://fonts/Better VCR 9.0.1.ttf" id="6_p57ef"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lnu2h"]
 size = Vector2(10, 640)
@@ -12,15 +14,17 @@ size = Vector2(10, 640)
 size = Vector2(404, 4)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_u2qpp"]
-size = Vector2(373, 113)
+size = Vector2(373, 124.5)
 
 [node name="Game" type="Node2D" unique_id=369857592]
 script = ExtResource("1_lbhrr")
 
 [node name="BG" type="Sprite2D" parent="." unique_id=1200404990]
 texture = ExtResource("1_lnu2h")
+metadata/_edit_lock_ = true
 
 [node name="Borders" type="Node2D" parent="." unique_id=1331586452]
+metadata/_edit_lock_ = true
 
 [node name="StaticBody2D" type="StaticBody2D" parent="Borders" unique_id=556928473]
 
@@ -49,25 +53,37 @@ position = Vector2(-2, 18)
 shape = SubResource("RectangleShape2D_7xxjw")
 
 [node name="FinishArea2D" type="Area2D" parent="Borders" unique_id=1486761326]
+collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Borders/FinishArea2D" unique_id=1544403519]
-position = Vector2(0, -256)
+position = Vector2(0, -250.25)
 shape = SubResource("RectangleShape2D_u2qpp")
 
 [node name="Timer" type="Node" parent="." unique_id=564820656]
 
 [node name="CarTimer" type="Timer" parent="Timer" unique_id=395431064]
+wait_time = 0.15
+autostart = true
+
+[node name="ScoreTimer" type="Timer" parent="Timer" unique_id=1404761772]
 autostart = true
 
 [node name="Objects" type="Node2D" parent="." unique_id=278907463]
 y_sort_enabled = true
 
 [node name="Player" parent="Objects" unique_id=873894058 instance=ExtResource("2_lbhrr")]
+position = Vector2(-104, 302)
 
 [node name="Tree" parent="Objects" unique_id=1729924090 instance=ExtResource("3_lnu2h")]
 position = Vector2(80, 205)
 
+[node name="Box" parent="Objects" unique_id=817182875 instance=ExtResource("5_iywne")]
+position = Vector2(79, 61)
+
+[node name="Node2D" type="Node2D" parent="Objects" unique_id=956577547]
+
 [node name="CarStartPositions" type="Node2D" parent="." unique_id=370286938]
+metadata/_edit_lock_ = true
 
 [node name="Marker2D" type="Marker2D" parent="CarStartPositions" unique_id=193266428]
 position = Vector2(197, 162)
@@ -96,5 +112,22 @@ position = Vector2(197, -94)
 [node name="Marker2D9" type="Marker2D" parent="CarStartPositions" unique_id=1607111105]
 position = Vector2(-197, -118)
 
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=812294334]
+
+[node name="Label" type="Label" parent="CanvasLayer" unique_id=1005070672]
+anchors_preset = -1
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -40.5
+offset_top = 20.0
+offset_right = 20.0
+offset_bottom = 23.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("6_p57ef")
+theme_override_font_sizes/font_size = 40
+text = "0"
+horizontal_alignment = 1
+
 [connection signal="body_entered" from="Borders/FinishArea2D" to="." method="_on_finish_area_2d_body_entered"]
 [connection signal="timeout" from="Timer/CarTimer" to="." method="_on_car_timer_timeout"]
+[connection signal="timeout" from="Timer/ScoreTimer" to="." method="_on_score_timer_timeout"]

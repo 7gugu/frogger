@@ -3,10 +3,17 @@ extends Area2D
 var direction = Vector2.LEFT
 var speed = 100
 
+var colors = [
+	preload("res://graphics/cars/red.png"),
+	preload("res://graphics/cars/green.png"),
+	preload("res://graphics/cars/yellow.png")
+]
+
 func _ready() -> void:
 	if position.x < 0:
 		direction.x = 1
 		$Sprite2D.flip_h = true
+	$Sprite2D.texture = colors.pick_random()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
